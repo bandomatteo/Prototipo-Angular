@@ -1,0 +1,23 @@
+<div class="form-container">
+  
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <h1>REGISTER </h1>
+        <div class="input-group">
+            <div class="addon-icon">
+                <i class="pi pi-envelope"></i> 
+            </div>
+            <input type="text" placeholder="Email" name="email" formControlName="email" />
+        </div>
+  
+        <div class="input-group">
+            <div class="addon-icon">
+                <i class="pi pi-lock"></i> 
+            </div>
+            <input type="password" placeholder="Password" name="password" formControlName="password" />
+        </div>
+  
+        <button type="submit" class="btn-register">
+            Register
+        </button>
+    </form>
+</div>
