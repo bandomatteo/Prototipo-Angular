@@ -2,101 +2,77 @@
 .form-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 5vh;
+    align-items: center;
     height: 100vh;
-    background-color: #121212;
+    background-color: #121212; /* Colore di sfondo più scuro */
+    padding: 0 20px;
 }
 
 /* Form styling */
 .register-form {
     padding: 30px;
-    background-color: #1f2937;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    background-color: #1f1f1f; /* Colore di sfondo del form più scuro */
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Ombra più marcata per dare un effetto di profondità */
     max-width: 400px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 /* Title styling */
 .register-form h1 {
-    margin-bottom: 10px; /* Adjust this value as needed */
-    margin-top: 0; /* Ensures the title is flush with the top of the form */
     color: #ffffff;
-    font-size: 1.8em; /* Adjust the font size if necessary */
+    font-size: 2em; /* Font leggermente più grande per il titolo */
+    margin-bottom: 20px;
+    text-align: center; /* Centrare il testo del titolo */
 }
 
 /* Input group styling */
-.input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    width: 100%;
+.p-field {
+    margin-bottom: 25px; /* Aumentato lo spazio tra i campi di input */
 }
 
-/* Addon icon styling */
-.addon-icon {
-    background-color: #374151;
-    padding: 10px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #374151;
-    border-right: none;
-}
-
-/* Icon styling */
-.icon-envelope,
-.icon-lock {
-    color: #d1d5db;
-    font-size: 1.2em;
-}
-
-/* Input styling */
-input[type="text"],
-input[type="password"] {
-    padding: 12px;
-    background-color: #1a1a1a;
-    color: #d1d5db;
-    border: 1px solid #374151;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+.p-input-icon-left input {
+    padding-left: 2.5rem;
+    background-color: #292929; /* Input field background darker */
+    color: #e0e0e0;
+    border: 1px solid #444444; /* Bordi leggermente più chiari per contrasto */
+    border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #00b4d8;
-    box-shadow: 0 0 10px #00b4d8;
-    outline: none;
+.p-input-icon-left input:focus {
+    border-color: #007ad9; /* Colore di focus sui bordi */
+    box-shadow: 0 0 10px #007ad9;
 }
 
-/* Button styling */
-.btn-register {
-    background-color: #00b4d8;
+/* Error message styling */
+.p-message {
+    margin-top: 5px;
+    font-size: 0.875rem;
+    color: #ff6b6b;
+}
+
+.p-message-error .p-message-text {
+    color: #ff6b6b;
+}
+
+button[pButton] {
+    width: 100%;
+    background-color: #007ad9;
     border: none;
     color: #ffffff;
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    margin-top: 10px; /* Aggiunto spazio sopra il pulsante di registrazione */
 }
 
-.btn-register:hover {
-    background-color: #0096c7;
+button[pButton]:hover {
+    background-color: #005ba1;
 }
 
-/* No changes needed for the existing CSS */
-
-.addon-icon i {
-    color: #d1d5db;
-    font-size: 1.2em;
+button[pButton][disabled] {
+    background-color: #4f4f4f;
+    cursor: not-allowed;
 }
