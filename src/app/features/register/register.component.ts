@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; // Import necessario per usare HttpClient
+import { HttpClientModule } from '@angular/common/http'; 
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth-service.service';
 import { RegisterRequestDTO } from '../../interfaces/register-request-dto';
-import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto'; // Importa l'interfaccia della risposta
+import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto'; 
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
+import { Router } from '@angular/router';  
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ import { MessageModule } from 'primeng/message';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule, // Deve essere importato qui
+    HttpClientModule, 
     InputTextModule,
     PasswordModule,
     ButtonModule,
@@ -35,7 +36,8 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private authService: AuthService  // Usa il servizio di autenticazione
+    private authService: AuthService,
+    private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -58,10 +60,12 @@ export class RegisterComponent {
 
     const registerData: RegisterRequestDTO = this.registerForm.value;
     this.authService.register(registerData).subscribe(
-      (response: AuthenticationResponseDTO) => { // Usa l'interfaccia per tipizzare la risposta
+      (response: AuthenticationResponseDTO) => { 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
         console.log('Token ricevuto:', response.token);
-        localStorage.setItem('authToken', response.token); // Salva il token nel localStorage
+        localStorage.setItem('authToken', response.token); 
+        
+        this.router.navigate(['/login']);
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed. Please try again.' });

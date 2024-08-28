@@ -1,0 +1,24 @@
+<div class="form-container">
+    <p-toast></p-toast>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form p-fluid">
+        <h1 class="p-text-center">LOGIN</h1>
+
+        <div class="p-field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-envelope"></i>
+                <input id="email" type="text" formControlName="email" pInputText placeholder="Email" />
+            </span>
+            <p-message *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" severity="error" text="Invalid email format"></p-message>
+        </div>
+
+        <div class="p-field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-lock"></i>
+                <input id="password" type="password" formControlName="password" pInputText placeholder="Password" />
+            </span>
+            <p-message *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" severity="error" text="Password is required"></p-message>
+        </div>
+
+        <button type="submit" pButton label="Login" class="p-mt-3" [disabled]="loginForm.invalid"></button>
+    </form>
+</div>
