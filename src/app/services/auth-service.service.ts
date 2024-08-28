@@ -20,6 +20,6 @@ export class AuthService {
   }
 
   authenticate(data: AuthenticationRequestDTO): Observable<AuthenticationResponseDTO> {
-    return this.http.post<AuthenticationResponseDTO>(`${this.apiUrl}/login`, data);
+    return this.http.post<AuthenticationResponseDTO>(`${this.apiUrl}/authenticate`, data);
   }
 }
