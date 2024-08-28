@@ -1,23 +1,32 @@
 <div class="form-container">
-  
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-        <h1>REGISTER </h1>
-        <div class="input-group">
-            <div class="addon-icon">
-                <i class="pi pi-envelope"></i> 
-            </div>
-            <input type="text" placeholder="Email" name="email" formControlName="email" />
+    <p-toast></p-toast>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form p-fluid">
+        <h1 class="p-text-center">REGISTER</h1>
+
+        <div class="p-field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-envelope"></i>
+                <input id="email" type="text" formControlName="email" pInputText placeholder="Email" />
+            </span>
+            <p-message *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" severity="error" text="Invalid email format"></p-message>
         </div>
-  
-        <div class="input-group">
-            <div class="addon-icon">
-                <i class="pi pi-lock"></i> 
-            </div>
-            <input type="password" placeholder="Password" name="password" formControlName="password" />
+
+        <div class="p-field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-lock"></i>
+                <input id="password" type="password" formControlName="password" pInputText placeholder="Password" />
+            </span>
+            <p-message *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" severity="error" text="Password must be at least 6 characters long"></p-message>
         </div>
-  
-        <button type="submit" class="btn-register">
-            Register
-        </button>
+
+        <div class="p-field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-lock"></i>
+                <input id="confirmPassword" type="password" formControlName="confirmPassword" pInputText placeholder="Confirm Password" />
+            </span>
+            <p-message *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" severity="error" text="Passwords do not match"></p-message>
+        </div>
+
+        <button type="submit" pButton label="Register" class="p-mt-3" [disabled]="registerForm.invalid"></button>
     </form>
 </div>
