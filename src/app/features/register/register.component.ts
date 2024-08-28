@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; // Import necessario per usare HttpClient
+import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/auth-service.service';
+import { RegisterRequestDTO } from '../../interfaces/register-request-dto';
+import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto'; // Importa l'interfaccia della risposta
+import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -15,12 +18,12 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule, // Deve essere importato qui
     InputTextModule,
     PasswordModule,
     ButtonModule,
     ToastModule,
-    MessageModule,
-    HttpClientModule
+    MessageModule
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',
@@ -32,7 +35,7 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private http: HttpClient
+    private authService: AuthService  // Usa il servizio di autenticazione
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,7 +47,6 @@ export class RegisterComponent {
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
-
     return password === confirmPassword ? null : { mismatch: true };
   }
 
@@ -54,10 +56,12 @@ export class RegisterComponent {
       return;
     }
 
-    const formData = this.registerForm.value;
-    this.http.post('http://localhost:8080/api/v1/auth/register', formData).subscribe(
-      () => {
+    const registerData: RegisterRequestDTO = this.registerForm.value;
+    this.authService.register(registerData).subscribe(
+      (response: AuthenticationResponseDTO) => { // Usa l'interfaccia per tipizzare la risposta
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
+        console.log('Token ricevuto:', response.token);
+        localStorage.setItem('authToken', response.token); // Salva il token nel localStorage
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed. Please try again.' });
