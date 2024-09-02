@@ -5,8 +5,6 @@ import {  AuthenticationRequestDTO, } from '../interfaces/authentication-request
 import { AuthenticationResponseDTO } from '../interfaces/authentication-response-dto';
 import { RegisterRequestDTO } from '../interfaces/register-request-dto';
 
-
-
 @Injectable({
   providedIn: 'root'  
 })

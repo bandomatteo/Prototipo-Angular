@@ -1,0 +1,88 @@
+/* Chat container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #121212;
+    padding: 0;
+    margin: 0;
+    overflow: hidden; /* Evita che il contenuto trabocchi */
+}
+
+.chat-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #1f1f1f;
+}
+
+.chat-messages {
+    padding-bottom: 100px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+}
+
+/* Input container settings */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* Aumenta lo spazio tra il form e il bordo inferiore */
+    background-color: #1f1f1f; /* Sfondo simile al contenitore chat */
+    margin-bottom: 10px; /* Alza il form rispetto al bordo inferiore */
+}
+
+/* Form styling */
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #292929;
+    border-radius: 50px; /* Bordi molto arrotondati */
+    padding: 10px 15px; /* Riduce un po' il padding per un design più compatto */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    width: 90%; /* Riduce la larghezza complessiva per centrarlo meglio */
+    max-width: 800px; /* Limita la larghezza totale del form */
+    box-sizing: border-box;
+}
+
+/* Input field styling */
+.register-form input {
+    padding-left: 20px;
+    background-color: #292929;
+    color: #e0e0e0;
+    border: 1px solid #444444;
+    border-radius: 50px;
+    height: 50px; /* Altezza moderata */
+    width: 100%;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
+.register-form input:focus {
+    border-color: #007ad9;
+    box-shadow: 0 0 10px #007ad9;
+    outline: none;
+}
+
+/* Button styling */
+button[pButton] {
+    height: 50px; /* Altezza del pulsante uguale a quella dell'input */
+    background-color: #007ad9;
+    border: none;
+    color: #ffffff;
+    padding: 0 20px; /* Padding laterale moderato */
+    font-size: 1.1em;
+    border-radius: 50px; /* Arrotonda i bordi del pulsante */
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+button[pButton]:hover {
+    background-color: #005ba1;
+}
+
+button[pButton][disabled] {
+    background-color: #4f4f4f;
+    cursor: not-allowed;
+}
