@@ -54,7 +54,9 @@ export class LoginComponent {
       (response: AuthenticationResponseDTO) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
         localStorage.setItem('authToken', response.token);
-        console.log('Token ricevuto:', response.token);
+        localStorage.setItem('userId', response.userId.toString());
+
+        console.log('Id Salvato', localStorage.getItem('userId'));
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please try again.' });
