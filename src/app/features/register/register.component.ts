@@ -63,7 +63,11 @@ export class RegisterComponent {
       (response: AuthenticationResponseDTO) => { 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
         console.log('Token ricevuto:', response.token);
+        
         localStorage.setItem('authToken', response.token); 
+        localStorage.setItem('userId', response.userId.toString());
+
+        console.log('Id Salvato', localStorage.getItem('userId'));
         
         this.router.navigate(['/login']);
       },

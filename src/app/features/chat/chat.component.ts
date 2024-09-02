@@ -45,7 +45,7 @@ export class ChatComponent implements AfterViewChecked {
             this.messages.push(userMessage);
     
             const chatRequest: ChatRequestDTO = {
-                id: 1, 
+                id: +localStorage.getItem('userId')!, 
                 message: this.userInput
             };
     
