@@ -1,15 +1,14 @@
 <div class="page-container">
+  <div class="chat-content" #messagesContainer>
+      <div class="chat-messages">
+          <app-chat-message *ngFor="let message of messages" [message]="message"></app-chat-message>
+      </div>
+  </div>
 
-    <!-- Contenuto della pagina di chat -->
-    <div class="chat-content" #messagesContainer>
-        <div class="chat-messages">
-            <app-chat-message *ngFor="let message of messages" [message]="message"></app-chat-message>
-        </div>
-    </div>
-    
-    <!-- Input box -->
-    <div class="chat-input">
-        <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
-        <button pButton type="button" (click)="sendMessage()" label="Send" icon="pi pi-send"></button>
-    </div>
+  <div class="form-container">
+      <div class="register-form chat-input">
+          <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+          <button pButton type="button" (click)="sendMessage()">Send</button>
+      </div>
+  </div>
 </div>

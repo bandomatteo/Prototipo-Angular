@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { AuthService } from '../../services/auth/auth-service.service';
+import { AuthService } from '../../services/auth-service.service';
 import { AuthenticationRequestDTO } from '../../interfaces/authentication-request-dto';
 import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto';
 import { CommonModule } from '@angular/common';

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {  AuthenticationRequestDTO, } from '../../interfaces/authentication-request-dto';
-import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto';
-import { RegisterRequestDTO } from '../../interfaces/register-request-dto';
+import {  AuthenticationRequestDTO, } from '../interfaces/authentication-request-dto';
+import { AuthenticationResponseDTO } from '../interfaces/authentication-response-dto';
+import { RegisterRequestDTO } from '../interfaces/register-request-dto';
 
 @Injectable({
   providedIn: 'root'  

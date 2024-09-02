@@ -5,11 +5,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { CommonModule } from '@angular/common';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
-
-interface Message {
-    text: string;
-    sender: 'user' | 'bot';
-}
+import { ChatService } from '../../services/chat.service';
+import { ChatRequestDTO } from '../../interfaces/chat-request-dto';
+import { ChatResponseDTO } from '../../interfaces/chat-response-dto';
 
 @Component({
     selector: 'app-chat',
@@ -23,13 +21,16 @@ interface Message {
         ChatMessageComponent
     ],
     templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.css']
+    styleUrls: ['./chat.component.css'],
+    providers: [ChatService]
 })
 export class ChatComponent implements AfterViewChecked {
-    messages: Message[] = [];
+    messages: { text: string, sender: 'user' | 'bot' }[] = [];
     userInput: string = '';
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+
+    constructor(private chatService: ChatService) {}
 
     ngAfterViewChecked() {
         this.scrollToBottom();
@@ -37,16 +38,30 @@ export class ChatComponent implements AfterViewChecked {
 
     sendMessage() {
         if (this.userInput.trim()) {
-            this.messages.push({ text: this.userInput, sender: 'user' });
+            const userMessage: { text: string; sender: 'user' | 'bot' } = { 
+                text: this.userInput, 
+                sender: 'user' 
+            };
+            this.messages.push(userMessage);
+    
+            const chatRequest: ChatRequestDTO = {
+                id: 1, 
+                message: this.userInput
+            };
+    
+            this.chatService.sendMessage(chatRequest).subscribe((response: ChatResponseDTO) => {
+                const botMessage: { text: string; sender: 'user' | 'bot' } = { 
+                    text: response.message, 
+                    sender: 'bot' 
+                };
+                this.messages.push(botMessage);
+                this.scrollToBottom();
+            });
+    
             this.userInput = '';
-            setTimeout(() => this.generateBotResponse(), 1000);
         }
     }
-
-    generateBotResponse() {
-        this.messages.push({ text: 'This is a response from ChatGPT!', sender: 'bot' });
-        this.scrollToBottom();
-    }
+    
 
     private scrollToBottom(): void {
         try {
