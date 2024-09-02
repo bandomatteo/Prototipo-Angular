@@ -44,7 +44,7 @@ export class ChatComponent implements AfterViewChecked {
     }
 
     generateBotResponse() {
-        this.messages.push({ text: 'This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!This is a response from ChatGPT!', sender: 'bot' });
+        this.messages.push({ text: 'This is a response from ChatGPT!', sender: 'bot' });
         this.scrollToBottom();
     }
 
