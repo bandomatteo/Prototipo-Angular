@@ -19,10 +19,14 @@
     padding: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Ombra per dare profondità */
     margin: 0 10px;
+    word-wrap: break-word; /* Forza il testo a spezzarsi */
+    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
 }
 
 .message-content {
     color: #e0e0e0; /* Testo leggermente più chiaro */
+    word-wrap: break-word; /* Forza il testo a spezzarsi */
+    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
 }
 
 .avatar {
@@ -39,19 +43,21 @@
 .received .avatar {
     margin-right: 10px;
 }
-.message-card {
-    background-color: #1f1f1f; /* Sfondo del messaggio in base al tema */
-    border-radius: 10px;
-    max-width: 60%;
-    padding: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Ombra per dare profondità */
-    margin: 0 10px;
-    word-wrap: break-word; /* Forza il testo a spezzarsi */
-    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
+
+.chat-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Solo questo elemento dovrebbe scrollare */
+    padding: 20px;
+    background-color: #1f1f1f;
+    scrollbar-width: thin; /* Per ridurre lo spazio occupato dalla barra di scorrimento */
+    scrollbar-color: #007ad9 #121212; /* Personalizza i colori della scrollbar */
 }
 
-.message-content {
-    color: #e0e0e0; /* Testo leggermente più chiaro */
-    word-wrap: break-word; /* Forza il testo a spezzarsi */
-    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
+.chat-messages {
+    padding-bottom: 100px; /* Spazio per evitare che i messaggi siano nascosti sotto l'input box */
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    /* Rimuovi overflow qui per evitare doppia barra */
 }
+
+
