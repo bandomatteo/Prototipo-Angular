@@ -1,0 +1,57 @@
+.message-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.sent {
+    flex-direction: row-reverse;
+}
+
+.received {
+    flex-direction: row;
+}
+
+.message-card {
+    background-color: #1f1f1f; /* Sfondo del messaggio in base al tema */
+    border-radius: 10px;
+    max-width: 60%;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Ombra per dare profondità */
+    margin: 0 10px;
+}
+
+.message-content {
+    color: #e0e0e0; /* Testo leggermente più chiaro */
+}
+
+.avatar {
+    flex-shrink: 0;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.sent .avatar {
+    margin-left: 10px;
+}
+
+.received .avatar {
+    margin-right: 10px;
+}
+.message-card {
+    background-color: #1f1f1f; /* Sfondo del messaggio in base al tema */
+    border-radius: 10px;
+    max-width: 60%;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Ombra per dare profondità */
+    margin: 0 10px;
+    word-wrap: break-word; /* Forza il testo a spezzarsi */
+    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
+}
+
+.message-content {
+    color: #e0e0e0; /* Testo leggermente più chiaro */
+    word-wrap: break-word; /* Forza il testo a spezzarsi */
+    overflow-wrap: break-word; /* Gestisce correttamente le lunghe stringhe senza spazi */
+}

@@ -1,0 +1,18 @@
+<div class="page-container">
+    
+    <div class="navbar">
+        <h2 class="navbar-title">ChatGPT Angular</h2>
+        <button pButton label="Logout" class="navbar-button" icon="pi pi-sign-out"></button>
+    </div>
+
+   
+    <div class="chat-content">
+        <p-scrollPanel class="chat-messages" #messagesContainer [style]="{width: '100%', height: '100%'}">
+            <app-chat-message *ngFor="let message of messages" [message]="message"></app-chat-message>
+        </p-scrollPanel>
+        <div class="chat-input">
+            <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+            <button pButton type="button" (click)="sendMessage()" label="Send" icon="pi pi-send"></button>
+        </div>
+    </div>
+</div>
