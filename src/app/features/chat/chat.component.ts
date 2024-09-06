@@ -9,6 +9,10 @@ import { ChatService } from '../../services/chat.service';
 import { ChatRequestDTO } from '../../interfaces/chat-request-dto';
 import { ChatResponseDTO } from '../../interfaces/chat-response-dto';
 import { FileUploadModule, FileUpload } from 'primeng/fileupload';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
     selector: 'app-chat',
@@ -20,20 +24,26 @@ import { FileUploadModule, FileUpload } from 'primeng/fileupload';
         InputTextModule,
         ScrollPanelModule,
         ChatMessageComponent,
-        FileUploadModule
+        FileUploadModule,
+        ToastModule,
+        MessageModule // Aggiungi ToastModule e MessageModule
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css'],
-    providers: [ChatService]
+    providers: [ChatService, MessageService] // Aggiungi MessageService come provider
 })
 export class ChatComponent implements AfterViewChecked {
     messages: { text: string, sender: 'user' | 'bot' }[] = [];
     userInput: string = '';
+    isUploading: boolean = false; // Nuova variabile per gestire il caricamento
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
     @ViewChild('fileUploader') fileUploader!: FileUpload; // Riferimento al componente FileUpload
 
-    constructor(private chatService: ChatService) {}
+    constructor(
+        private chatService: ChatService,
+        private messageService: MessageService // Iniettiamo MessageService
+    ) { }
 
     ngAfterViewChecked() {
         this.scrollToBottom();
@@ -41,41 +51,55 @@ export class ChatComponent implements AfterViewChecked {
 
     sendMessage() {
         if (this.userInput.trim()) {
-            const userMessage: { text: string; sender: 'user' | 'bot' } = { 
-                text: this.userInput, 
-                sender: 'user' 
+            const userMessage: { text: string; sender: 'user' | 'bot' } = {
+                text: this.userInput,
+                sender: 'user'
             };
             this.messages.push(userMessage);
-    
+
             const chatRequest: ChatRequestDTO = {
-                id: +localStorage.getItem('userId')!, 
+                id: +localStorage.getItem('userId')!,
                 message: this.userInput
             };
-    
-            this.chatService.sendMessage(chatRequest).subscribe((response: ChatResponseDTO) => {
-                const botMessage: { text: string; sender: 'user' | 'bot' } = { 
-                    text: response.message, 
-                    sender: 'bot' 
-                };
-                this.messages.push(botMessage);
-                this.scrollToBottom();
-            });
-    
-            this.userInput = '';
-        }
-    }
-    
 
-    private scrollToBottom(): void {
-        try {
-            this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-        } catch (err) {
-            console.error('Could not scroll to bottom:', err);
+            this.chatService.sendMessage(chatRequest).subscribe(
+                (response: ChatResponseDTO) => {
+                    const botMessage: { text: string; sender: 'user' | 'bot' } = {
+                        text: response.message,
+                        sender: 'bot'
+                    };
+                    this.messages.push(botMessage);
+                    this.scrollToBottom();
+
+                    
+                },
+                (error) => {
+                    // Gestione dell'errore per il limite di token
+                    if (error.status === 400 || error.status === 403) {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Token Limit Exceeded',
+                            detail: 'You have exceeded the maximum number of tokens for this request. Please try again with a shorter message or contact support.'
+                        });
+                    } else {
+                        // Messaggio di errore generico
+                        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message sending failed. Please try again.' });
+                    }
+                }
+            );
+
+            this.userInput = '';
         }
     }
 
     onFileUpload(event: any) {
-        console.log('onFileUpload called');
+        if (this.isUploading) {
+            // Evita l'upload multiplo
+            this.messageService.add({ severity: 'info', summary: 'File Upload', detail: 'A file is already being uploaded. Please wait.' });
+            return;
+        }
+    
+        this.isUploading = true;  // Impedisce caricamenti multipli
     
         const uploadedFile = event.files[0];
     
@@ -84,18 +108,38 @@ export class ChatComponent implements AfterViewChecked {
             formData.append('file', uploadedFile, uploadedFile.name);
             formData.append('userId', localStorage.getItem('userId')!);
     
-            
             this.chatService.uploadFile(formData).subscribe({
                 next: (response) => {
-                    console.log(response);
+                    // Filtra solo l'evento di tipo _HttpResponse, ignora _HttpHeaderResponse
+                    if (response instanceof HttpResponse) {  // Verifica se è la risposta completa
+                        this.isUploading = false; // Resetta lo stato di caricamento
+                        this.messageService.add({ severity: 'success', summary: 'File Upload', detail: 'File uploaded successfully' });
+                        console.log('Upload completed successfully:', response);
+                    }
                 },
                 error: (err) => {
-                    //console.error('File upload failed:', err);
+                    this.isUploading = false; // Reset dello stato in caso di errore
+                    console.error('Upload error:', err);
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'File upload failed. Please try again.' });
                 }
             });
         } else {
-            console.error('No file selected');
+            this.isUploading = false; // Resetta lo stato se non c'è alcun file
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No file selected' });
         }
     }
     
+
+
+
+
+
+
+    private scrollToBottom(): void {
+        try {
+            this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+        } catch (err) {
+            console.error('Could not scroll to bottom:', err);
+        }
+    }
 }
