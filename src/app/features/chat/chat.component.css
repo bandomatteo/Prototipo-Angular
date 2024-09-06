@@ -47,9 +47,7 @@
 }
 
 /* Stilizzazione del pulsante di upload */
-.register-form p-fileUpload {
-    margin-right: 10px; /* Distanza tra il pulsante di upload e l'input */
-}
+
 
 .register-form p-fileUpload .p-button {
     height: 50px; /* Altezza uguale agli altri elementi */
@@ -235,3 +233,6 @@ button[pButton][disabled] {
     background-color: #007ad9 !important;
 }
 
+.register-form p-fileUpload {
+    margin-right: 0; /* Distanza tra il pulsante di upload e l'input */
+}
