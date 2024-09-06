@@ -74,9 +74,27 @@ export class ChatComponent implements AfterViewChecked {
         }
     }
 
-    onFileSelect(event: any) {
+    onFileUpload(event: any) {
+        console.log('onFileUpload called');
+    
         const uploadedFile = event.files[0];
-        console.log('File caricato:', uploadedFile);
-        // Puoi gestire l'anteprima o mostrare il file caricato nella chat
+    
+        if (uploadedFile) {
+            const formData: FormData = new FormData();
+            formData.append('file', uploadedFile, uploadedFile.name);
+    
+            // Chiama il servizio di upload
+            this.chatService.uploadFile(formData).subscribe({
+                next: (response) => {
+                    console.log(response);
+                },
+                error: (err) => {
+                    //console.error('File upload failed:', err);
+                }
+            });
+        } else {
+            console.error('No file selected');
+        }
     }
+    
 }

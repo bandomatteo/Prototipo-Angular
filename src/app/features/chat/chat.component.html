@@ -7,23 +7,15 @@
 
     <div class="form-container">
         <div class="register-form chat-input">
-            <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Scrivi un messaggio..." />
+            <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()"
+                placeholder="Scrivi un messaggio..." />
             <button pButton type="button" (click)="sendMessage()" label="Invia"></button>
         </div>
 
 
-        <div class="file-upload-container">
-            <p-fileUpload 
-                #fileUploader 
-                name="pdfFiles" 
-                accept=".pdf" 
-                maxFileSize="1000000" 
-                (onSelect)="onFileSelect($event)"
-                mode="basic" 
-                chooseLabel="Carica PDF"
-                auto="true"
-                customUpload="true" />
-        </div>
+        <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload" accept=".pdf" maxFileSize="1000000"
+            [auto]="false" chooseLabel="Carica PDF" customUpload="true" (uploadHandler)="onFileUpload($event)" />
+
 
 
 
