@@ -8,6 +8,7 @@ import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatService } from '../../services/chat.service';
 import { ChatRequestDTO } from '../../interfaces/chat-request-dto';
 import { ChatResponseDTO } from '../../interfaces/chat-response-dto';
+import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 
 @Component({
     selector: 'app-chat',
@@ -18,7 +19,8 @@ import { ChatResponseDTO } from '../../interfaces/chat-response-dto';
         ButtonModule,
         InputTextModule,
         ScrollPanelModule,
-        ChatMessageComponent
+        ChatMessageComponent,
+        FileUploadModule
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css'],
@@ -29,6 +31,7 @@ export class ChatComponent implements AfterViewChecked {
     userInput: string = '';
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+    @ViewChild('fileUploader') fileUploader!: FileUpload; // Riferimento al componente FileUpload
 
     constructor(private chatService: ChatService) {}
 
@@ -69,5 +72,11 @@ export class ChatComponent implements AfterViewChecked {
         } catch (err) {
             console.error('Could not scroll to bottom:', err);
         }
+    }
+
+    onFileSelect(event: any) {
+        const uploadedFile = event.files[0];
+        console.log('File caricato:', uploadedFile);
+        // Puoi gestire l'anteprima o mostrare il file caricato nella chat
     }
 }
