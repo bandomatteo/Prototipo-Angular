@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewChecked, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -30,7 +30,8 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css'],
-    providers: [ChatService, MessageService] // Aggiungi MessageService come provider
+    providers: [ChatService, MessageService],
+    encapsulation: ViewEncapsulation.None  // Aggiungi MessageService come provider
 })
 export class ChatComponent implements AfterViewChecked {
     messages: { text: string, sender: 'user' | 'bot' }[] = [];
@@ -38,7 +39,8 @@ export class ChatComponent implements AfterViewChecked {
     isUploading: boolean = false; // Nuova variabile per gestire il caricamento
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
-    @ViewChild('fileUploader') fileUploader!: FileUpload; // Riferimento al componente FileUpload
+    @ViewChild('fileUploader') fileUploader!: FileUpload; 
+    
 
     constructor(
         private chatService: ChatService,
@@ -74,7 +76,7 @@ export class ChatComponent implements AfterViewChecked {
                     
                 },
                 (error) => {
-                    // Gestione dell'errore per il limite di token
+                    
                     if (error.status === 400 || error.status === 403) {
                         this.messageService.add({
                             severity: 'error',
@@ -82,7 +84,7 @@ export class ChatComponent implements AfterViewChecked {
                             detail: 'You have exceeded the maximum number of tokens for this request. Please try again with a shorter message or contact support.'
                         });
                     } else {
-                        // Messaggio di errore generico
+                        
                         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message sending failed. Please try again.' });
                     }
                 }
@@ -94,12 +96,12 @@ export class ChatComponent implements AfterViewChecked {
 
     onFileUpload(event: any) {
         if (this.isUploading) {
-            // Evita l'upload multiplo
+            
             this.messageService.add({ severity: 'info', summary: 'File Upload', detail: 'A file is already being uploaded. Please wait.' });
             return;
         }
     
-        this.isUploading = true;  // Impedisce caricamenti multipli
+        this.isUploading = true;  
     
         const uploadedFile = event.files[0];
     
@@ -110,24 +112,31 @@ export class ChatComponent implements AfterViewChecked {
     
             this.chatService.uploadFile(formData).subscribe({
                 next: (response) => {
-                    // Filtra solo l'evento di tipo _HttpResponse, ignora _HttpHeaderResponse
-                    if (response instanceof HttpResponse) {  // Verifica se è la risposta completa
-                        this.isUploading = false; // Resetta lo stato di caricamento
+                    
+                    if (response instanceof HttpResponse) {  
+                        this.isUploading = false; 
                         this.messageService.add({ severity: 'success', summary: 'File Upload', detail: 'File uploaded successfully' });
                         console.log('Upload completed successfully:', response);
+                        
+                        
+                        this.fileUploader.clear();
                     }
                 },
                 error: (err) => {
-                    this.isUploading = false; // Reset dello stato in caso di errore
+                    this.isUploading = false; 
                     console.error('Upload error:', err);
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'File upload failed. Please try again.' });
+    
+                    
+                    this.fileUploader.clear();
                 }
             });
         } else {
-            this.isUploading = false; // Resetta lo stato se non c'è alcun file
+            this.isUploading = false; 
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No file selected' });
         }
     }
+    
     
 
 

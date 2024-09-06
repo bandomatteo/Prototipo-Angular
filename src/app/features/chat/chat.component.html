@@ -8,17 +8,15 @@
 
     <div class="form-container">
         <div class="register-form chat-input">
+            <p-fileUpload #fileUploader mode="basic" name="demo[]" chooseIcon="pi pi-upload" accept=".pdf"
+                maxFileSize="1000000" [auto]="false" chooseLabel="" customUpload="true"
+                (uploadHandler)="onFileUpload($event)" styleClass="custom-upload-button">
+            </p-fileUpload>
             <input pInputText [(ngModel)]="userInput" (keyup.enter)="sendMessage()"
                 placeholder="Scrivi un messaggio..." />
             <button pButton type="button" (click)="sendMessage()" label="Invia"></button>
         </div>
 
-
-        <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload" accept=".pdf" maxFileSize="1000000"
-            [auto]="false" chooseLabel="Carica PDF" customUpload="true" (uploadHandler)="onFileUpload($event)" />
-
-
-
-
     </div>
+
 </div>
