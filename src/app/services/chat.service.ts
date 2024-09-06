@@ -15,4 +15,12 @@ export class ChatService {
   sendMessage(data: ChatRequestDTO): Observable<ChatResponseDTO> {
     return this.http.post<ChatResponseDTO>(this.apiUrl, data);
   }
+
+  uploadFile(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8080/loader/single', formData, {
+        reportProgress: true,
+        observe: 'events'
+    });
+}
+
 }

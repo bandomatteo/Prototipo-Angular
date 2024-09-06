@@ -69,7 +69,7 @@ export class RegisterComponent {
 
         console.log('Id Salvato', localStorage.getItem('userId'));
         
-        this.router.navigate(['/login']);
+        this.router.navigate(['/chat']);
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed. Please try again.' });
