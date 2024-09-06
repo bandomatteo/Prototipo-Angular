@@ -82,8 +82,9 @@ export class ChatComponent implements AfterViewChecked {
         if (uploadedFile) {
             const formData: FormData = new FormData();
             formData.append('file', uploadedFile, uploadedFile.name);
+            formData.append('userId', localStorage.getItem('userId')!);
     
-            // Chiama il servizio di upload
+            
             this.chatService.uploadFile(formData).subscribe({
                 next: (response) => {
                     console.log(response);
