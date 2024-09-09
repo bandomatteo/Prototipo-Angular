@@ -64,10 +64,11 @@ export class RegisterComponent {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
         console.log('Token ricevuto:', response.token);
         
-        localStorage.setItem('authToken', response.token); 
-        localStorage.setItem('userId', response.userId.toString());
+        
+        sessionStorage.setItem('authToken', response.token); 
+        sessionStorage.setItem('userId', response.userId.toString());
 
-        console.log('Id Salvato', localStorage.getItem('userId'));
+        console.log('Id Salvato', sessionStorage.getItem('userId'));
         
         this.router.navigate(['/chat']);
       },

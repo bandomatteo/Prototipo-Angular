@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
-  const token = localStorage.getItem('authToken');
+  const token = sessionStorage.getItem('authToken');
 
   // Definisci i percorsi che vuoi escludere
   const excludedPaths: string[] = ['/register', '/login'];

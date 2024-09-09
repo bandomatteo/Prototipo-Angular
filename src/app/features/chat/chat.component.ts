@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';  // Importa il router
 
 @Component({
     selector: 'app-chat',
@@ -26,17 +27,18 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
         ChatMessageComponent,
         FileUploadModule,
         ToastModule,
-        MessageModule // Aggiungi ToastModule e MessageModule
+        MessageModule 
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css'],
     providers: [ChatService, MessageService],
-    encapsulation: ViewEncapsulation.None  // Aggiungi MessageService come provider
+    encapsulation: ViewEncapsulation.None  
 })
 export class ChatComponent implements AfterViewChecked {
     messages: { text: string, sender: 'user' | 'bot' }[] = [];
     userInput: string = '';
-    isUploading: boolean = false; // Nuova variabile per gestire il caricamento
+    isUploading: boolean = false; 
+    errorCount: number = 0;  // Contatore degli errori consecutivi
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
     @ViewChild('fileUploader') fileUploader!: FileUpload; 
@@ -44,7 +46,8 @@ export class ChatComponent implements AfterViewChecked {
 
     constructor(
         private chatService: ChatService,
-        private messageService: MessageService // Iniettiamo MessageService
+        private messageService: MessageService,
+        private router: Router  // Inietti il router
     ) { }
 
     ngAfterViewChecked() {
@@ -58,12 +61,12 @@ export class ChatComponent implements AfterViewChecked {
                 sender: 'user'
             };
             this.messages.push(userMessage);
-
+    
             const chatRequest: ChatRequestDTO = {
-                id: +localStorage.getItem('userId')!,
+                id: +sessionStorage.getItem('userId')!,
                 message: this.userInput
             };
-
+    
             this.chatService.sendMessage(chatRequest).subscribe(
                 (response: ChatResponseDTO) => {
                     const botMessage: { text: string; sender: 'user' | 'bot' } = {
@@ -72,31 +75,50 @@ export class ChatComponent implements AfterViewChecked {
                     };
                     this.messages.push(botMessage);
                     this.scrollToBottom();
-
-                    
+    
+                    this.errorCount = 0;  // Reset contatore errori dopo un successo
                 },
                 (error) => {
-                    
-                    if (error.status === 400 || error.status === 403) {
+                    this.errorCount++;  // Incrementa il contatore degli errori
+    
+                    if (this.errorCount >= 3) {
+                        // Mostra il messaggio di errore e attendi 3 secondi prima di reindirizzare
                         this.messageService.add({
                             severity: 'error',
-                            summary: 'Token Limit Exceeded',
-                            detail: 'You have exceeded the maximum number of tokens for this request. Please try again with a shorter message or contact support.'
+                            summary: 'Errore',
+                            detail: 'Troppi errori. Sarai reindirizzato alla pagina di login in 3 secondi.'
                         });
+    
+                        // Attendi 3 secondi prima di cancellare sessionStorage e reindirizzare
+                        setTimeout(() => {
+                            sessionStorage.clear();
+                            this.router.navigate(['/login']);
+                        }, 3000); // 3 secondi di attesa
                     } else {
-                        
-                        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message sending failed. Please try again.' });
+                        if (error.status === 400 || error.status === 403) {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Errore',
+                                detail: 'Si è verificato un errore durante l\'elaborazione della richiesta. Riprova più tardi.'
+                            });
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Errore',
+                                detail: 'Qualcosa è andato storto. Per favore riprova.'
+                            });
+                        }
                     }
                 }
             );
-
+    
             this.userInput = '';
         }
     }
+    
 
     onFileUpload(event: any) {
         if (this.isUploading) {
-            
             this.messageService.add({ severity: 'info', summary: 'File Upload', detail: 'A file is already being uploaded. Please wait.' });
             return;
         }
@@ -108,16 +130,14 @@ export class ChatComponent implements AfterViewChecked {
         if (uploadedFile) {
             const formData: FormData = new FormData();
             formData.append('file', uploadedFile, uploadedFile.name);
-            formData.append('userId', localStorage.getItem('userId')!);
+            formData.append('userId', sessionStorage.getItem('userId')!);  // Usa sessionStorage
     
             this.chatService.uploadFile(formData).subscribe({
                 next: (response) => {
-                    
                     if (response instanceof HttpResponse) {  
                         this.isUploading = false; 
                         this.messageService.add({ severity: 'success', summary: 'File Upload', detail: 'File uploaded successfully' });
                         console.log('Upload completed successfully:', response);
-                        
                         
                         this.fileUploader.clear();
                     }
@@ -127,7 +147,6 @@ export class ChatComponent implements AfterViewChecked {
                     console.error('Upload error:', err);
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'File upload failed. Please try again.' });
     
-                    
                     this.fileUploader.clear();
                 }
             });
@@ -136,13 +155,6 @@ export class ChatComponent implements AfterViewChecked {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No file selected' });
         }
     }
-    
-    
-
-
-
-
-
 
     private scrollToBottom(): void {
         try {

@@ -20,4 +20,9 @@ export class AuthService {
   authenticate(data: AuthenticationRequestDTO): Observable<AuthenticationResponseDTO> {
     return this.http.post<AuthenticationResponseDTO>(`${this.apiUrl}/authenticate`, data);
   }
+
+  isAuthenticated(): boolean {
+    const token = sessionStorage.getItem('authToken'); 
+    return token !== null; 
+  }
 }
