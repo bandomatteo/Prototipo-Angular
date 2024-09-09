@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';  
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ import { Router } from '@angular/router';
     PasswordModule,
     ButtonModule,
     ToastModule,
-    MessageModule
+    MessageModule,
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',
@@ -64,7 +65,6 @@ export class RegisterComponent {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
         console.log('Token ricevuto:', response.token);
         
-        
         sessionStorage.setItem('authToken', response.token); 
         sessionStorage.setItem('userId', response.userId.toString());
 
@@ -76,5 +76,10 @@ export class RegisterComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed. Please try again.' });
       }
     );
+  }
+
+  // Metodo per navigare alla pagina di login
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }
