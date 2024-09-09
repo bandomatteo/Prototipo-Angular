@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: 'Roboto', sans-serif;
+}
 body, html {
     overflow-y: hidden; /* Disabilita la barra di scorrimento verticale su tutto il documento */
 }
