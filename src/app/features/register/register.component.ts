@@ -78,7 +78,7 @@ export class RegisterComponent {
     );
   }
 
-  // Metodo per navigare alla pagina di login
+  
   navigateToLogin() {
     this.router.navigate(['/login']);
   }

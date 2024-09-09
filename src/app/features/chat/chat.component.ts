@@ -38,7 +38,7 @@ export class ChatComponent implements AfterViewChecked {
     messages: { text: string, sender: 'user' | 'bot' }[] = [];
     userInput: string = '';
     isUploading: boolean = false; 
-    errorCount: number = 0;  // Contatore degli errori consecutivi
+    errorCount: number = 0;  
 
     @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
     @ViewChild('fileUploader') fileUploader!: FileUpload; 
@@ -47,7 +47,7 @@ export class ChatComponent implements AfterViewChecked {
     constructor(
         private chatService: ChatService,
         private messageService: MessageService,
-        private router: Router  // Inietti il router
+        private router: Router  
     ) { }
 
     ngAfterViewChecked() {
@@ -76,36 +76,36 @@ export class ChatComponent implements AfterViewChecked {
                     this.messages.push(botMessage);
                     this.scrollToBottom();
     
-                    this.errorCount = 0;  // Reset contatore errori dopo un successo
+                    this.errorCount = 0;  
                 },
                 (error) => {
-                    this.errorCount++;  // Incrementa il contatore degli errori
+                    this.errorCount++;  
     
                     if (this.errorCount >= 3) {
-                        // Mostra il messaggio di errore e attendi 3 secondi prima di reindirizzare
+                        
                         this.messageService.add({
                             severity: 'error',
-                            summary: 'Errore',
-                            detail: 'Troppi errori. Sarai reindirizzato alla pagina di login in 3 secondi.'
+                            summary: 'Error',
+                            detail: 'Too many errors. You will be redirected to the login page in 3 seconds.'
                         });
     
-                        // Attendi 3 secondi prima di cancellare sessionStorage e reindirizzare
+                        
                         setTimeout(() => {
                             sessionStorage.clear();
                             this.router.navigate(['/login']);
-                        }, 3000); // 3 secondi di attesa
+                        }, 3000); 
                     } else {
                         if (error.status === 400 || error.status === 403) {
                             this.messageService.add({
                                 severity: 'error',
                                 summary: 'Errore',
-                                detail: 'Si è verificato un errore durante l\'elaborazione della richiesta. Riprova più tardi.'
+                                detail: 'An error occurred while processing the request. Please try again later.'
                             });
                         } else {
                             this.messageService.add({
                                 severity: 'error',
-                                summary: 'Errore',
-                                detail: 'Qualcosa è andato storto. Per favore riprova.'
+                                summary: 'Error',
+                                detail: 'Something went wrong. Please try again'
                             });
                         }
                     }
