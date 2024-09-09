@@ -8,7 +8,7 @@ import { ChatResponseDTO } from '../interfaces/chat-response-dto';
   providedIn: 'root'
 })
 export class ChatService {
-  private apiUrl = 'http://localhost:8080/chat';  // URL del tuo endpoint
+  private apiUrl = 'http://localhost:8080/chat';  
 
   constructor(private http: HttpClient) {}
 

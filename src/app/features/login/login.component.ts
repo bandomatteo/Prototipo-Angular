@@ -55,15 +55,21 @@ export class LoginComponent {
     this.authService.authenticate(loginData).subscribe(
       (response: AuthenticationResponseDTO) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('userId', response.userId.toString());
+        
+        // Usa sessionStorage
+        sessionStorage.setItem('authToken', response.token);
+        sessionStorage.setItem('userId', response.userId.toString());
 
-        console.log('Id Salvato', localStorage.getItem('userId'));
+        console.log('Id Salvato', sessionStorage.getItem('userId'));
         this.router.navigate(['/chat']);
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please try again.' });
       }
     );
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }
