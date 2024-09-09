@@ -35,35 +35,15 @@
 /* Stile del form */
 .register-form {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: #292929;
     border-radius: 50px;
-    padding: 10px 15px;
+    padding: 20px 30px; /* Aumentato il padding per un aspetto più grande */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    width: 90%; /* Riduce la larghezza complessiva per centrarlo meglio */
-    max-width: 800px;
+    width: 100%; /* Larghezza completa per allinearsi meglio alla chat */
+    max-width: 1200px; /* Aumentato il max-width per dimensioni maggiori */
     box-sizing: border-box;
-}
-
-/* Stilizzazione del pulsante di upload */
-
-
-.register-form p-fileUpload .p-button {
-    height: 50px; /* Altezza uguale agli altri elementi */
-    background-color: #007ad9;
-    border: none;
-    color: #ffffff;
-    padding: 0 20px;
-    font-size: 1.1em;
-    border-radius: 50px; /* Arrotonda i bordi come gli altri pulsanti */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.register-form p-fileUpload .p-button:hover {
-    background-color: #005ba1;
 }
 
 /* Stilizzazione dell'input di testo */
@@ -73,10 +53,11 @@
     color: #e0e0e0;
     border: 1px solid #444444;
     border-radius: 50px;
-    height: 50px;
-    width: 100%;
-    font-size: 1.1em;
+    height: 60px; /* Altezza maggiore per input */
+    width: 100%; /* Usa tutta la larghezza disponibile */
+    font-size: 1.3em; /* Font più grande per migliorare la leggibilità */
     box-sizing: border-box;
+    margin-right: 15px; /* Spazio tra input e pulsante di invio */
 }
 
 .register-form input:focus {
@@ -87,14 +68,14 @@
 
 /* Stilizzazione del pulsante "Invia" */
 button[pButton] {
-    height: 50px; /* Altezza del pulsante uguale a quella dell'input */
+    height: 60px; /* Altezza del pulsante maggiore */
     background-color: #007ad9;
     border: none;
     color: #ffffff;
-    padding: 0 20px; /* Padding laterale moderato */
-    font-size: 1.1em;
-    border-radius: 50px; /* Arrotonda i bordi del pulsante */
-    margin-left: 10px;
+    padding: 0 40px; /* Aumentato il padding laterale per un pulsante più grande */
+    font-size: 1.3em; /* Font più grande per pulsante */
+    border-radius: 50px;
+    margin-left: 15px;
     cursor: pointer;
 }
 
@@ -107,62 +88,27 @@ button[pButton][disabled] {
     cursor: not-allowed;
 }
 
-/* Stilizzazione del pulsante di upload */
-.register-form p-fileUpload {
-    margin-right: 10px; /* Distanza tra il pulsante di upload e l'input */
-}
-
+/* Stilizzazione per ingrandire p-fileUpload ma mantenere lo stile */
 .register-form p-fileUpload .p-button {
-    height: 50px; /* Altezza uguale agli altri elementi */
-    background-color: #007ad9;
-    border: none;
-    color: #ffffff;
-    padding: 0 20px;
-    font-size: 1.1em;
-    border-radius: 50px; /* Arrotonda i bordi come gli altri pulsanti */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    height: 60px; /* Aumentata altezza per uniformarsi agli altri elementi */
+    font-size: 1.3em; /* Font più grande */
+    padding: 0 20px; /* Più spazio all'interno del pulsante */
 }
 
-/* Selettore specifico per i bordi del pulsante di upload */
-.register-form p-fileUpload .p-fileupload-buttonbar .p-button {
-    border-radius: 50px !important; /* Arrotonda i bordi del pulsante */
-    background-color: #007ad9;
-}
-
-.register-form p-fileUpload .p-fileupload-buttonbar .p-button:hover {
-    background-color: #005ba1;
-}
-
-.p-fileupload p-fileupload-basic{
-    display: none;
-}
-
-/* Stilizzazione del contenitore del pulsante di upload */
 .p-fileupload.p-fileupload-basic .p-button {
-    height: 50px; /* Altezza uguale agli altri elementi */
-    background-color: #007ad9;
-    border: none;
-    color: #ffffff;
+    height: 60px; /* Aumenta altezza ma mantieni il design */
+    font-size: 1.3em; /* Ingrandisce il testo nel pulsante */
     padding: 0 20px;
-    font-size: 1.1em;
-    border-radius: 50px !important; /* Arrotonda i bordi del pulsante */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    border-radius: 50px;
 }
 
-/* Hover per il pulsante di upload */
+/* Mantiene lo stile predefinito per hover */
 .p-fileupload.p-fileupload-basic .p-button:hover {
     background-color: #005ba1;
 }
-
-/* Assicurati che ci sia spazio tra il pulsante di upload e altri elementi */
 .p-fileupload.p-fileupload-basic {
-    margin-right: 10px; /* Distanza tra il pulsante di upload e altri elementi */
+    margin-right: 15px; /* Distanza tra il pulsante di upload e altri elementi */
 }
-
 
 /* Custom styling for the p-fileUpload button */
 .custom-upload-button .p-button {
@@ -230,9 +176,32 @@ button[pButton][disabled] {
 
 ::ng-deep .custom-upload-button .p-fileupload-buttonbar .p-button {
     border-radius: 50px !important;
-    background-color: #007ad9 !important;
+    background-color: #0064b1 !important;
 }
 
 .register-form p-fileUpload {
     margin-right: 0; /* Distanza tra il pulsante di upload e l'input */
+}
+
+.custom-upload-button {
+    background-color: #007ad9 !important; /* Same background color as the "Invia" button */
+    border-radius: 50px !important; /* Keep the rounded corners */
+    height: 40px !important; /* Increased height for a bigger button */
+    color: #ffffff !important; /* White text, same as the "Invia" button */
+    padding: 0 40px !important; /* Increase padding for a bigger button appearance */
+    font-size: 1.5em !important; /* Larger font size for a more prominent button */
+    border: none !important; /* No border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Hover effect to match the "Invia" button */
+.custom-upload-button:hover {
+    background-color: #005ba1 !important; /* Darken on hover, same behavior */
+}
+
+.p-button-label {
+    padding-right: 10px; /* Adjust this value to control how far right you want to shift the text */
 }
