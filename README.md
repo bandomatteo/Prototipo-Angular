@@ -1,27 +1,59 @@
-# Frontend
+# 🌐 Prototipo Angular - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Questo progetto è un prototipo sviluppato per la tesi di laurea triennale in Informatica presso l'Università di Padova. Rappresenta la **parte frontend** dell'applicazione, costruita utilizzando [Angular](https://angular.io/) e PrimeNG  per creare un'interfaccia moderna e reattiva. La parte **backend** del progetto è disponibile a [questo link](link).
 
-## Development server
+## 🚀 Come iniziare
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Prerequisiti
 
-## Code scaffolding
+- 📦 **Node.js** v14 o superiore
+- 🛠️ **Angular CLI** v12 o superiore
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installazione
 
-## Build
+1. **Clona il repository**:
+```bash
+git clone https://github.com/bandomatteo/Prototipo-Angular.git
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. **Vai nella directory del progetto**:
+```bash
+cd Prototipo-Angular
+```
 
-## Running unit tests
+3. **Installa le dipendenze**:
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🖥️ Avvio del progetto
 
-## Running end-to-end tests
+Per avviare l'applicazione in locale:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm start
+```
 
-## Further help
+Apri il browser e vai su [http://localhost:4200](http://localhost:4200) per vedere l'app in azione.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🛠️ Comandi disponibili
+
+- **Avvio locale**: `npm start`
+- **Build per la produzione**: `npm run build`
+- **Watch dei file**: `npm run watch`
+
+## 🧰 Tecnologie usate
+
+- **Angular**: ^17.3.0
+- **PrimeNG**: ^17.18.9
+
+## 🏗️ Costruzione della build
+
+Per creare una build ottimizzata per la produzione:
+
+```bash
+npm run build
+```
+
+I file verranno generati nella cartella `dist/`.
+

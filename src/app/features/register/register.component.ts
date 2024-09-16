@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MessageService } from 'primeng/api';
-import { AuthService } from '../../services/auth-service.service';
+import { AuthService } from  '../../services/auth-service.service';
 import { RegisterRequestDTO } from '../../interfaces/register-request-dto';
 import { AuthenticationResponseDTO } from '../../interfaces/authentication-response-dto'; 
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { Router } from '@angular/router';  
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ import { Router } from '@angular/router';
     PasswordModule,
     ButtonModule,
     ToastModule,
-    MessageModule
+    MessageModule,
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',
@@ -63,13 +64,22 @@ export class RegisterComponent {
       (response: AuthenticationResponseDTO) => { 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration completed successfully' });
         console.log('Token ricevuto:', response.token);
-        localStorage.setItem('authToken', response.token); 
         
-        this.router.navigate(['/login']);
+        sessionStorage.setItem('authToken', response.token); 
+        sessionStorage.setItem('userId', response.userId.toString());
+
+        console.log('Id Salvato', sessionStorage.getItem('userId'));
+        
+        this.router.navigate(['/chat']);
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Registration failed. Please try again.' });
       }
     );
+  }
+
+  
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

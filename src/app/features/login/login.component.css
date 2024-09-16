@@ -76,3 +76,18 @@ button[pButton][disabled] {
     background-color: #4f4f4f;
     cursor: not-allowed;
 }
+
+/* Style for the clickable label */
+.register-label {
+    display: block;
+    text-align: center;
+    color: #007ad9;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1em;
+    text-decoration: underline;
+}
+
+.register-label:hover {
+    color: #005ba1;
+}

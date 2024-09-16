@@ -5,8 +5,6 @@ import {  AuthenticationRequestDTO, } from '../interfaces/authentication-request
 import { AuthenticationResponseDTO } from '../interfaces/authentication-response-dto';
 import { RegisterRequestDTO } from '../interfaces/register-request-dto';
 
-
-
 @Injectable({
   providedIn: 'root'  
 })
@@ -21,5 +19,10 @@ export class AuthService {
 
   authenticate(data: AuthenticationRequestDTO): Observable<AuthenticationResponseDTO> {
     return this.http.post<AuthenticationResponseDTO>(`${this.apiUrl}/authenticate`, data);
+  }
+
+  isAuthenticated(): boolean {
+    const token = sessionStorage.getItem('authToken'); 
+    return token !== null; 
   }
 }

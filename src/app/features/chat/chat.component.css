@@ -1,0 +1,207 @@
+/* Stili generali per la pagina e la chat */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #121212;
+    padding: 0;
+    margin: 0;
+    overflow: hidden; /* Evita che il contenuto trabocchi */
+}
+
+.chat-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #1f1f1f;
+}
+
+.chat-messages {
+    padding-bottom: 100px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+}
+
+/* Stile del contenitore del form */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* Aumenta lo spazio tra il form e il bordo inferiore */
+    background-color: #1f1f1f; /* Sfondo simile al contenitore chat */
+    margin-bottom: 10px; /* Alza il form rispetto al bordo inferiore */
+}
+
+/* Stile del form */
+.register-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #292929;
+    border-radius: 50px;
+    padding: 20px 30px; /* Aumentato il padding per un aspetto più grande */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    width: 100%; /* Larghezza completa per allinearsi meglio alla chat */
+    max-width: 1200px; /* Aumentato il max-width per dimensioni maggiori */
+    box-sizing: border-box;
+}
+
+/* Stilizzazione dell'input di testo */
+.register-form input {
+    padding-left: 20px;
+    background-color: #292929;
+    color: #e0e0e0;
+    border: 1px solid #444444;
+    border-radius: 50px;
+    height: 60px; /* Altezza maggiore per input */
+    width: 100%; /* Usa tutta la larghezza disponibile */
+    font-size: 1.3em; /* Font più grande per migliorare la leggibilità */
+    box-sizing: border-box;
+    margin-right: 15px; /* Spazio tra input e pulsante di invio */
+}
+
+.register-form input:focus {
+    border-color: #007ad9;
+    box-shadow: 0 0 10px #007ad9;
+    outline: none;
+}
+
+/* Stilizzazione del pulsante "Invia" */
+button[pButton] {
+    height: 60px; /* Altezza del pulsante maggiore */
+    background-color: #007ad9;
+    border: none;
+    color: #ffffff;
+    padding: 0 40px; /* Aumentato il padding laterale per un pulsante più grande */
+    font-size: 1.3em; /* Font più grande per pulsante */
+    border-radius: 50px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+button[pButton]:hover {
+    background-color: #005ba1;
+}
+
+button[pButton][disabled] {
+    background-color: #4f4f4f;
+    cursor: not-allowed;
+}
+
+/* Stilizzazione per ingrandire p-fileUpload ma mantenere lo stile */
+.register-form p-fileUpload .p-button {
+    height: 60px; /* Aumentata altezza per uniformarsi agli altri elementi */
+    font-size: 1.3em; /* Font più grande */
+    padding: 0 20px; /* Più spazio all'interno del pulsante */
+}
+
+.p-fileupload.p-fileupload-basic .p-button {
+    height: 60px; /* Aumenta altezza ma mantieni il design */
+    font-size: 1.3em; /* Ingrandisce il testo nel pulsante */
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+/* Mantiene lo stile predefinito per hover */
+.p-fileupload.p-fileupload-basic .p-button:hover {
+    background-color: #005ba1;
+}
+.p-fileupload.p-fileupload-basic {
+    margin-right: 15px; /* Distanza tra il pulsante di upload e altri elementi */
+}
+
+/* Custom styling for the p-fileUpload button */
+.custom-upload-button .p-button {
+    background-color: #007ad9;
+    border-radius: 50px !important;  /* Apply rounded corners */
+    height: 50px;  /* Set height to match other buttons */
+    color: #ffffff;
+    padding: 0 20px;
+    font-size: 1.1em;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-upload-button .p-button:hover {
+    background-color: #005ba1;
+}
+
+.custom-upload-button {
+    margin-right: 10px;  /* Add space between the upload button and input field */
+}
+
+.custom-upload-button .p-button {
+    background-color: #007ad9 !important;
+    border-radius: 50px !important;
+    height: 50px;
+    color: white;
+    padding: 0 20px;
+    font-size: 1.1em;
+}
+
+.custom-upload-button .p-button:hover {
+    background-color: #005ba1 !important;
+}
+.custom-upload-button .p-button {
+    background-color: #007ad9 !important;
+    border-radius: 50px !important;
+    height: 50px;
+    color: white;
+    padding: 0 20px;
+    font-size: 1.1em;
+}
+
+.custom-upload-button .p-button:hover {
+    background-color: #005ba1 !important;
+}
+.custom-upload-button .p-fileupload-buttonbar .p-button {
+    background-color: #007ad9 !important;
+    border-radius: 50px !important;
+}
+
+::ng-deep .custom-upload-button .p-button {
+    background-color: #007ad9 !important;
+    border-radius: 50px !important;
+    height: 50px !important;
+    color: white !important;
+    padding: 0 20px !important;
+    font-size: 1.1em !important;
+}
+
+::ng-deep .custom-upload-button .p-button:hover {
+    background-color: #005ba1 !important;
+}
+
+::ng-deep .custom-upload-button .p-fileupload-buttonbar .p-button {
+    border-radius: 50px !important;
+    background-color: #0064b1 !important;
+}
+
+.register-form p-fileUpload {
+    margin-right: 0; /* Distanza tra il pulsante di upload e l'input */
+}
+
+.custom-upload-button {
+    background-color: #007ad9 !important; /* Same background color as the "Invia" button */
+    border-radius: 50px !important; /* Keep the rounded corners */
+    height: 40px !important; /* Increased height for a bigger button */
+    color: #ffffff !important; /* White text, same as the "Invia" button */
+    padding: 0 40px !important; /* Increase padding for a bigger button appearance */
+    font-size: 1.5em !important; /* Larger font size for a more prominent button */
+    border: none !important; /* No border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Hover effect to match the "Invia" button */
+.custom-upload-button:hover {
+    background-color: #005ba1 !important; /* Darken on hover, same behavior */
+}
+
+.p-button-label {
+    padding-right: 10px; /* Adjust this value to control how far right you want to shift the text */
+}

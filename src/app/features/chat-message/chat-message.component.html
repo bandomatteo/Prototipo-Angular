@@ -1,0 +1,12 @@
+<div #messagesContainer class="messages-container">
+    <div class="message-wrapper" [ngClass]="{'sent': message.sender === 'user', 'received': message.sender === 'bot'}">
+        <p-avatar *ngIf="message.sender === 'bot'" icon="pi pi-sparkles" shape="circle" class="avatar"></p-avatar>
+        <p-avatar *ngIf="message.sender === 'user'" icon="pi pi-user" shape="circle" class="avatar"></p-avatar>
+
+        <p-card class="message-card">
+            <div class="message-content">
+                <p>{{ message.text }}</p>
+            </div>
+        </p-card>
+    </div>
+</div>

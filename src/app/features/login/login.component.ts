@@ -11,6 +11,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
+import { Router } from '@angular/router';  
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -53,12 +55,21 @@ export class LoginComponent {
     this.authService.authenticate(loginData).subscribe(
       (response: AuthenticationResponseDTO) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful' });
-        localStorage.setItem('authToken', response.token);
-        console.log('Token ricevuto:', response.token);
+        
+        // Usa sessionStorage
+        sessionStorage.setItem('authToken', response.token);
+        sessionStorage.setItem('userId', response.userId.toString());
+
+        console.log('Id Salvato', sessionStorage.getItem('userId'));
+        this.router.navigate(['/chat']);
       },
       () => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please try again.' });
       }
     );
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }
